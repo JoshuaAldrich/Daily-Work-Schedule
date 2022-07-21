@@ -20,7 +20,7 @@ var four = $("#4pm");
 var five = $("#5pm");
 var today = new Date();
 
-//Create a function that converts am and pm to military time so we can compare to current time
+//Create an array that includes all times
 
 let times = [
   "#9am",
@@ -33,11 +33,29 @@ let times = [
   "#4pm",
   "#5pm",
 ];
+
 let momentTime = moment().format("LT");
 console.log(momentTime);
-if (times == momentTime) className = "present";
-else if (times < momentTime) className = "past";
-else className = "future";
+
+function currentTime() {
+  $("times").each(function () {
+    var hour = parseInt(moment().format("H"));
+    $(this).remove("past present future");
+    if (times == hour) {
+      $(this).addClass("present");
+    } else if (times < hour) {
+      $(this).addClass("past");
+    } else {
+      $(this).addClass("future");
+    }
+  });
+}
+
+// function currentTime() {
+//   if (times == momentTime) className = "present";
+//   else if (times < momentTime) className = "past";
+//   else className = "future";
+// }
 
 console.log(times);
 
