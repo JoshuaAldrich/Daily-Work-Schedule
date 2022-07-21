@@ -20,10 +20,30 @@ var four = $("#4pm");
 var five = $("#5pm");
 var today = new Date();
 
-// let times = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+//Create a function that converts am and pm to military time so we can compare to current time
+
+let times = [
+  "#9am",
+  "#10am",
+  "11am",
+  "#12pm",
+  "#1pm",
+  "2pm",
+  "#3pm",
+  "#4pm",
+  "#5pm",
+];
+let momentTime = moment().format("LT");
+console.log(momentTime);
+if (times == momentTime) className = "present";
+else if (times < momentTime) className = "past";
+else className = "future";
+
+console.log(times);
+
 // times.forEach((time) => {
 //   var newTime = time.replace(/[^0-9]/g, "");
-//   let momentTime = moment().format("LT");
+
 //   momentTime = momentTime.split(":")[0];
 //   let className = "";
 //   if (time == momentTime) className = "present";
@@ -46,8 +66,7 @@ var today = new Date();
 
 // // console.log();
 
-// /*Current Date*/
-// var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-// $("#currentDay").html(myDate);
-
-// console.log(myDate);
+/*Current Date*/
+var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
+$("#currentDay").html(myDate);
+console.log(myDate);
