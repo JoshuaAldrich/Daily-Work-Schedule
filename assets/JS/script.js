@@ -9,42 +9,37 @@ future time block should be green
 */
 
 /*Time Slots*/
-var nine = $("#9am");
-var ten = $("#10am");
-var eleven = $("#11am");
-var twelve = $("#12pm");
-var one = $("#1pm");
-var two = $("#2pm");
-var three = $("#3pm");
-var four = $("#4pm");
-var five = $("#5pm");
 var today = new Date();
 var event = $("#textarea");
 
-//Create an array that includes all times so they can be added to local storage
+//Create an array that includes all times so they can be added to local storage {key,value}
 
 let times = [
-  { time: nine, event: "", },
-  { time: 10, event: "", },
-  { time: 11, event: "", },
-  { time: 12, event: "", },
-  { time: 13, event: "", },
-  { time: 14, event: "", },
-  { time: 15, event: "", },
-  { time: 16, event: "", },
-  { time: 17, event: "", },
+  { time: "9am", event: "" },
+  { time: "10am", event: "" },
+  { time: "11am", event: "" },
+  { time: "12pm", event: "" },
+  { time: "1pm", event: "" },
+  { time: "2pm", event: "" },
+  { time: "3pm", event: "" },
+  { time: "4pm", event: "" },
+  { time: "5pm", event: "" },
 ];
 
 let momentTime = moment().format("LT");
-console.log(momentTime);
+/*Current Date*/
+var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
+$("#currentDay").html(myDate);
+
+//Adding background colors based on the current time
 
 function currentTime() {
-  $("times").each(function () {
-    var hour = parseInt(moment().format("H"));
+  $("event").each(function () {
+    var currentHour = parseInt(moment().format("H"));
     $(this).remove("past present future");
-    if (times == hour) {
+    if (times == currentHour) {
       $(this).addClass("present");
-    } else if (times < hour) {
+    } else if (times < currentHour) {
       $(this).addClass("past");
     } else {
       $(this).addClass("future");
@@ -52,26 +47,13 @@ function currentTime() {
   });
 }
 
-/*Current Date*/
-var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-$("#currentDay").html(myDate);
-
 // adding a button with the save function to local storage
-var saveBtn = $("#button");
-  .on('click' , function () {
-  
-    saveEvent();
-  })
+$(".saveBtn").on("click", function () {
+  var hour = $(this).siblings(".hour").text();
+  var userContent = $(this).siblings("textarea").val();
 
-
-  function saveEvent() {
-    localStorage.setItem("event", JSON.stringify(times));
-  }
-
-console.log(myDate);
-
-console.log(times);
-
+  localStorage.setItem(hour, userContent);
+});
 // function currentTime() {
 //   if (times == momentTime) className = "present";
 //   else if (times < momentTime) className = "past";
