@@ -19,19 +19,20 @@ var three = $("#3pm");
 var four = $("#4pm");
 var five = $("#5pm");
 var today = new Date();
+var event = $("#textarea");
 
-//Create an array that includes all times
+//Create an array that includes all times so they can be added to local storage
 
 let times = [
-  "9am",
-  "#10am",
-  "11am",
-  "#12pm",
-  "#1pm",
-  "2pm",
-  "#3pm",
-  "#4pm",
-  "5pm",
+  { time: nine, event: "", },
+  { time: 10, event: "", },
+  { time: 11, event: "", },
+  { time: 12, event: "", },
+  { time: 13, event: "", },
+  { time: 14, event: "", },
+  { time: 15, event: "", },
+  { time: 16, event: "", },
+  { time: 17, event: "", },
 ];
 
 let momentTime = moment().format("LT");
@@ -57,6 +58,15 @@ $("#currentDay").html(myDate);
 
 // adding a button with the save function to local storage
 var saveBtn = $("#button");
+  .on('click' , function () {
+  
+    saveEvent();
+  })
+
+
+  function saveEvent() {
+    localStorage.setItem("event", JSON.stringify(times));
+  }
 
 console.log(myDate);
 
