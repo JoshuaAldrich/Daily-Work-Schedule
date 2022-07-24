@@ -23,7 +23,7 @@ var today = new Date();
 //Create an array that includes all times
 
 let times = [
-  "#9am",
+  "9am",
   "#10am",
   "11am",
   "#12pm",
@@ -31,7 +31,7 @@ let times = [
   "2pm",
   "#3pm",
   "#4pm",
-  "#5pm",
+  "5pm",
 ];
 
 let momentTime = moment().format("LT");
@@ -51,13 +51,22 @@ function currentTime() {
   });
 }
 
+/*Current Date*/
+var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
+$("#currentDay").html(myDate);
+
+// adding a button with the save function to local storage
+var saveBtn = $("#button");
+
+console.log(myDate);
+
+console.log(times);
+
 // function currentTime() {
 //   if (times == momentTime) className = "present";
 //   else if (times < momentTime) className = "past";
 //   else className = "future";
 // }
-
-console.log(times);
 
 // times.forEach((time) => {
 //   var newTime = time.replace(/[^0-9]/g, "");
@@ -84,7 +93,8 @@ console.log(times);
 
 // // console.log();
 
-/*Current Date*/
-var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-$("#currentDay").html(myDate);
-console.log(myDate);
+// function Save(event) {
+//   var textinput = $(this).parent().attr("id");
+
+//   localStorage.setItem(moment().format("MMMM Do YYYY") + times);
+// }
