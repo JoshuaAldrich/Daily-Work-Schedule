@@ -14,42 +14,44 @@ var event = $("#textarea");
 
 //Create an array that includes all times so they can be added to local storage {key,value}
 
-let times = [
-  { time: "9am", event: "" },
-  { time: "10am", event: "" },
-  { time: "11am", event: "" },
-  { time: "12pm", event: "" },
-  { time: "1pm", event: "" },
-  { time: "2pm", event: "" },
-  { time: "3pm", event: "" },
-  { time: "4pm", event: "" },
-  { time: "5pm", event: "" },
-];
-
 let momentTime = moment().format("LT");
 /*Current Date*/
 var myDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 $("#currentDay").html(myDate);
-
+var currentH = moment().hours();
 //Adding background colors based on the current time
 
-function currentTime() {
-  $("event").each(function () {
-    var currentHour = parseInt(moment().format("H"));
-    $(this).remove("past present future");
-    if (times == currentHour) {
-      $(this).addClass("present");
-    } else if (times < currentHour) {
-      $(this).addClass("past");
-    } else {
-      $(this).addClass("future");
-    }
-  });
+for (let i = 9; i < 18; i++) {
+  var timeBlock = "";
+  const element = localStorage.getItem(i);
+  if (i > 12) {
+    timeBlock = i - 12 + "pm";
+  } else if (i == 12) {
+    timeBlock = "12pm";
+  } else {
+    timeBlock = i + "am";
+  }
+  $("#" + timeBlock)
+    .children("textarea")
+    .val(element);
+  if (i < currentH) {
+    $("#" + timeBlock)
+      .children("textarea")
+      .addClass("past");
+  } else if (i == currentH) {
+    $("#" + timeBlock)
+      .children("textarea")
+      .addClass("present");
+  } else {
+    $("#" + timeBlock)
+      .children("textarea")
+      .addClass("future");
+  }
 }
 
 // adding a button with the save function to local storage
 $(".saveBtn").on("click", function () {
-  var hour = $(this).siblings(".hour").text();
+  var hour = $(this).parent().attr("data-hour");
   var userContent = $(this).siblings("textarea").val();
 
   localStorage.setItem(hour, userContent);
@@ -90,3 +92,29 @@ $(".saveBtn").on("click", function () {
 
 //   localStorage.setItem(moment().format("MMMM Do YYYY") + times);
 // }
+
+// function currentTime() {
+//   $("event").each(function () {
+//     var currentHour = parseInt(moment().format("H"));
+//     $(this).remove("past present future");
+//     if (times == currentHour) {
+//       $(this).addClass("present");
+//     } else if (times < currentHour) {
+//       $(this).addClass("past");
+//     } else {
+//       $(this).addClass("future");
+//     }
+//   });
+// }
+
+// let times = [
+//   { time: "9am", event: "" },
+//   { time: "10am", event: "" },
+//   { time: "11am", event: "" },
+//   { time: "12pm", event: "" },
+//   { time: "1pm", event: "" },
+//   { time: "2pm", event: "" },
+//   { time: "3pm", event: "" },
+//   { time: "4pm", event: "" },
+//   { time: "5pm", event: "" },
+// ];
